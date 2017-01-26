@@ -24,7 +24,7 @@ export default {
     }
     if ('left' in result && 'right' in result && 'width' in result) {
       console.warn('Inconsistent layoutData: left and right are set, ignore width');
-      result = omit(result, ['width']);
+      // result = omit(result, ['width']);
     }
     if ('top' in result && 'bottom' in result && 'height' in result) {
       console.warn('Inconsistent layoutData: top and bottom are set, ignore height');

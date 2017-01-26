@@ -8,6 +8,19 @@ const CONFIG = {
   _type: 'tabris.CollectionView',
 
   _properties: {
+    estimatedItemHeight:  {
+      type: 'any', // "function|natural",
+      default: 0,
+      access: {
+        set(name, value, options) {
+          if (typeof value !== 'function') {
+            // Required for 1.0 compatibility
+            this._nativeSet('estimatedItemHeight', value);
+          }
+          this._storeProperty(name, value, options);
+        }
+      }
+    },
     itemHeight: {
       type: 'any', // "function|natural",
       default: 0,
