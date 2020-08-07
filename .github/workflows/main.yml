@@ -1,0 +1,57 @@
+name: Build Tabris.js 
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-on-mac:
+    runs-on: macos-latest
+    name: macOS Tabris.js build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build
+        run: |
+          npm install
+          grunt build -v --no-color
+
+      - name: Build tabris-js snippets
+        run: |
+          cd snippets
+          npm install --only=dev
+          cp -R ../build/tabris node_modules/
+          npm run build
+          mv node_modules/ node_modules_old/
+          mkdir node_modules
+          cp -R ../build/tabris node_modules/
+
+  build-on-ubuntu:
+    runs-on: ubuntu-latest
+    name: Ubuntu Tabris.js build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build
+        run: |
+          npm install
+          grunt build -v --no-color
+
+      - name: Build tabris-js snippets
+        run: |
+          cd snippets
+          npm install --only=dev
+          cp -R ../build/tabris node_modules/
+          npm run build
+          mv node_modules/ node_modules_old/
+          mkdir node_modules
+          cp -R ../build/tabris node_modules/
